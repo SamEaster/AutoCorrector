@@ -4,6 +4,7 @@ import time
 import heapq
 import requests
 from tqdm import tqdm
+import os
 
 
 ds = pd.read_csv('English_word_freq.csv')
@@ -74,10 +75,10 @@ def testing_corrector_novig(file_url, verbose=False):
 
 def test_sample(text, verbose=False):
     start = time.time()
-    lines = text.strip().split('\n')
+    lines = text
     total=0; right=0; unknown=0
     for line in tqdm(lines):
-        correct, misspell = line.split(':')
+        correct, misspell = line.strip().split(':')
         correct = correct.strip()
         misspelled = misspell.strip().split(' ')
         # print(correct)
@@ -94,122 +95,16 @@ def test_sample(text, verbose=False):
     print(f"Time taken: {(total/(time.time() - start)):.2f} seconds")
 
 if __name__ == "__main__":
-
-    test = '''search: searc serch saerch seerch
-        please: plese pleas pleese pleaze
-        online: onlne onine olnine onliene
-        people: peaple peeple peple peapol
-        system: systm sytem sistern sysstem
-        health: helth heallth healthe healt
-        email: emial eamil emale emaill
-        school: shool scool schoool scholl
-        review: reveiw revie reivew revu
-        number: numbr numbeer nummber numbar
-        about: abot abaut abouht abbout
-        these: thees thes theze thesse
-        their: thier ther theihr theyr
-        video: vedio vidoe viedo vidio
-        first: frist ferst forst fisrt
-        music: musc musik musec musiq
-        click: clik click clcik cliick
-        price: prce priece priec prcie
-        value: valie valew valoue valye
-        report: repot reoprt reoprt repurt
-        store: stroe storr sture stoar
-        issue: isue isseu issu isshu
-        other: oter othr othe othar
-        order: oder ordr odrer orddr
-        login: logn loggin ligin logen
-        mobile: moblie moble mobiel mobille
-        items: itams itmes itesm iitems
-        design: desgin desgine deesgn desin
-        access: accces acsess acces acesss
-        forum: formu forrum furum forom
-        office: ofice ofise offce offise
-        books: boks boooks bokks boocs
-        small: smal smaall smoll smull
-        apply: aplay aply apli aplly
-        money: mony monay muny monee
-        offer: ofer oferr ofor offar
-        today: todya tday tooday todaay
-        below: bellow beloe belw belwo
-        files: fiels fiels filez filse
-        image: imgae imaje emage imige
-        login: loggin logn logiin logein
-        media: meedia medeia medea mdeia
-        index: indek indix indax indez
-        group: gruop groop grupe groub
-        email: eamil emile emial emael
-        event: evnt evenet evant eevent
-        field: feild fild fielld feeld
-        phone: phonne fone phne phoen
-        level: leval leevl leveel lebel
-        paper: papre papr paaper ppaper
-        offer: oferr ooffer ofer ofar
-        again: agian agin agaen agien
-        among: amoung amog amon amogn
-        check: chek checck cheak ceck
-        white: wite whitte whight whyte
-        login: logen loign logan lgin
-        based: bsaed baesd basd baced
-        email: eimail emael emal emaile
-        women: wommen womn wemen womman
-        child: chiled cild chil chield
-        while: whille whil whiel whail
-        photo: fotho poto phote phto
-        entry: entrey entri enetry intri
-        value: vlaue vuale valuw valoo
-        quote: quate qoute quoto quotte
-        login: loign logn logen loggin
-        items: itams itmes itms iitems
-        label: lable labal labeel labell
-        below: belwo bellow beloe belaw
-        click: click cllick cliick clikc
-        build: bield bulid builld bild
-        event: evant eevnt eveent evnet
-        email: eemail emaill emial emael
-        court: cort courtt corth courd
-        clear: cleer cear clearr cleor
-        march: marh marhc marchh marck
-        hotel: hotle hoetl hotal hotil
-        watch: wathc wach wacth watsh
-        house: hause huse hous houze
-        tools: tols toolz toolss toools
-        think: thnik tnk thinkk thikn
-        files: fils fiels filez filse
-        north: norrth nirth nort norht
-        wrong: wrng wron wrogn wroong
-        point: ponit pint poit poynt
-        press: pres prss prress prass
-        place: plase plaec plcace plaece
-        entry: enetry entri entra entiry
-        drive: drve driev driev drrive
-        image: imgae imaje imige emage
-        email: emial eimail emaile emil
-        study: studdy stuyd sstudy stude
-        short: shrt shourt shor shurt
-        watch: wathc wach waatch watsh
-        store: stor storre stoar sture
-        music: musick musc musiq muisc
-        video: vedio vidoe vidio viedo
-        guest: guets gest gues gueest
-        print: prinnt prnt prient preent
-        apple: aple appple aplle applo
-        world: wrold whorld worled worlld
-        light: ligt lighht lighte ligt
-        forum: forrum foorum furum foarum
-        again: agian agin agaen agaain
-        night: nite nigth nigght niight
-        march: marh maarch marhc marchh
-        wrong: wrng wrogn wroong wrang
-        '''
     
-    test1 = 'https://norvig.com/spell-testset1.txt'
-    test2 = 'https://norvig.com/spell-testset2.txt'
+    # test1 = 'https://norvig.com/spell-testset1.txt'
+    # test2 = 'https://norvig.com/spell-testset2.txt'
     # testing model
     # testing_corrector_novig(test1, verbose=0)
-    # test_sample(test, verbose=0)
 
-    print(Corrector('applle'))
+    with open('test.txt', 'r') as f:
+        lines = f.readlines()
+        test_sample(lines, verbose=0)
+
+    # print(Corrector('applle'))
 
 
